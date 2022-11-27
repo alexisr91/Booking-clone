@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form'ad/_collections.html.twig' %}
+{% block body %}
+
+<div class="container my-2">
+    <h1>Création d'une nouvelle annonce</h1>
+
+    {# Le premier form c'est une fonction de twig / le deuxieme c'est la variable envoyé depuis le controller  #}
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.slug) }}
+    {{ form_row(form.coverImage) }}
+    {{ form_row(form.introduction) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.rooms) }}
+    {{ form_row(form.price) }}
+
+    {{ form_label(form.images) }}
+    {{ form_errors(form.images) }}
+    
+    
+    <ul id="images-fields-list" 
+    data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
+    data-widget-tags="{{ '<li></li>'|e }}"
+    data-widget-counter="{{ form.images|length }}">
+    
+    
+    {% for imagesField in form.images %}
+    <li>
+        {{ form_errors(imagesField) }}
+        {{ form_widget(imagesField) }}
+    </li>
+    {% endfor %}
+</ul>
+<button type="submit" class="btn btn-primary">Créer</button>
+
+<button type="button"
+class="add-another-collection-widget btn btn-warning"
+data-list-selector="#images-fields-list">Ajouter une image</button>
+
+
+
+{{ form_end(form) }} 
+</div>
+{% endblock %}
+
+

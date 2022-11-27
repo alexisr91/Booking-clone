@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title%} Modifier une annonce{% endblock %}
+{% form_theme form 'ad/_collections.html.twig' %}
+{% block body %}
+
+<div class="container my-2">
+    <h1>Modification d'une  annonce</h1>
+
+    {# Le premier form c'est une fonction de twig / le deuxieme c'est la variable envoyé depuis le controller  #}
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.slug) }}
+    {{ form_row(form.coverImage) }}
+    {{ form_row(form.introduction) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.rooms) }}
+    {{ form_row(form.price) }}
+    {{ form_label(form.images) }}
+    {{ form_errors(form.images) }}
+
+
+    <ul id="images-fields-list" 
+        data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ form.images|length }}">
+
+    
+{% for imagesField in form.images %}
+    <li>
+        {{ form_errors(imagesField) }}
+        {{ form_widget(imagesField) }}
+    </li>
+{% endfor %}
+</ul>
+
+<button type="button"
+        class="add-another-collection-widget btn btn-primary"
+        data-list-selector="#images-fields-list">Ajouter une image</button>
+
+    {{form_row(form.save)}}
+    
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }} 
+</div>
+{% endblock %}

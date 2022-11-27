@@ -1,0 +1,35 @@
+body{background-color: #f3efef; height: 100vh;}
+.container{margin-top:1.2em;}
+
+.ad-title{background-size:cover;background-position:center center;padding:1em;}
+
+.ad-title .container{margin-top: 0;}
+
+.ad-title h1, .ad-title p{color:#fff; text-shadow: 3px 3px 3px rgba(0,0,0,0.5);}
+
+.carousel-option{text-shadow: 3px 3px 3px rgba(0,0,0,0.5);}
+
+
+footer{position:sticky; bottom:0; width: 100%; color: #f3efef;}
+
+
+/* Form */
+#images-fields-list li > div{ display:flex; flex-wrap: wrap; flex:0 0 85%; max-width: 85%; width: 100%; padding-left: 15px; padding-right: 15px}
+#images-fields-list li .form-group{flex:0 0 50%; max-width: 50%; padding-left: 15px; padding-right: 15px; width: 100%;}
+
+.add-another-collection-widget{ margin-bottom: 8px;} 
+
+#images-fields-list li{
+    display:flex;
+    flex-wrap: wrap;
+    margin-right: 100px;
+}
+
+#images-fields-list li .button-delete{
+    display:flex; flex-wrap: wrap; flex:0 0 15%; max-width: 15%; width: 100%; padding-left: 2px; padding-right: 15px; max-height: 50px; margin-top: 22px;
+}
+
+@media (max-width:780px){
+    #images-fields-list li .form-group, #images-fields-list li > div{flex:0 0 100%; max-width: 100%; padding-left: 15px; padding-right: 15px; width: 100%;}
+
+}
