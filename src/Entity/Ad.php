@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity; // voir le namespace comme un marker sur une map qui te permet de te servir comme un raccourci
 
+
+// un use est un require 
 use App\Repository\AdRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -42,6 +43,8 @@ class Ad
     /**
      * @ORM\Column(type="float")
      */
+
+
     private $price;
 
     /**
@@ -52,7 +55,7 @@ class Ad
 
     /**
      * @ORM\Column(type="text")
-     * @Asert\Length(min=100, minMessage="Merci de mettre au moins 100 caractères")
+     * @Assert\Length(min=100, minMessage="Merci de mettre au moins 100 caractères")
      */
     private $content;
 
@@ -71,13 +74,19 @@ class Ad
      */
     private $images;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ads")
+     */
+    private $user;
+
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
     }
 
      /**
-     *   ANNOTATION 
      * Creation d'une fonction pour permettre d'initialiser le slug ( avant la persistance et avant la MAJ )
      * 
      * @ORM\PrePersist // Ce qui se passe juste avant d'ajouter une nouvelle donnée
@@ -209,6 +218,19 @@ class Ad
                 $image->setAd(null);
             }
         }
+
+        return $this;
+    }
+
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

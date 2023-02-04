@@ -14,9 +14,35 @@
 
       <ul class="navbar-nav ms-auto">
 
-          <li class="nav-item">
-              <a class="nav-link" href="#">Mon compte</a>
+        {% if app.user is not null %}
+        
+          <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="accountDropdownLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> 
+                  
+                  <img src="{{app.user.avatar}}" alt="Avatar de {{ app.user.fullName }}" class="avatar avatar-small">
+                    {{app.user.fullName}}
+
+                </a>
+
+                <div class="dropdown-menu-right dropdown-menu" aria-labelledby="accountDropdownLink">
+                      
+                  <a class="dropdown-item" href="{{path('account_home')}}">Mon compte</a>
+                        <a class="dropdown-item" href="{{path('account_profile')}}">Modifier mon profil</a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{path('account_logout')}}">Deconnexion</a>  
+                </div>
+      
           </li>
+          {% else %}
+          <li class="nav-item">
+              <a class="nav-link" href="{{path('account_register')}}">Inscription</a>
+          </li>
+          
+          <li class="nav-item">
+              <a class="nav-link" href="{{path('account_login')}}">Connexion</a>
+          </li>
+          {% endif %}
       </ul> 
     </div>
 </nav>

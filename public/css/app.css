@@ -33,3 +33,14 @@ footer{position:sticky; bottom:0; width: 100%; color: #f3efef;}
     #images-fields-list li .form-group, #images-fields-list li > div{flex:0 0 100%; max-width: 100%; padding-left: 15px; padding-right: 15px; width: 100%;}
 
 }
+
+/* */
+
+.avatar{ width:128px; height: 128px; border-radius: 50%;}
+
+.avatar-medium{ max-width: 64px; max-height: 64px;}
+.avatar-small{max-width: 32px; max-height: 32px;}
+
+/* menu */
+
+.navbar-expand-lg .navbar-nav .dropdown-menu{left: 52px;}

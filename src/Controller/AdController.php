@@ -15,8 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Entity\Ad; // Sert à recuperer ce que tu as identifier ( require ) mais plus performant et simple et indispensable 
 
+// -> : pour les objets, les fonctions    / => : les tableaux 
 
 class AdController extends AbstractController
 {
@@ -73,6 +75,8 @@ class AdController extends AbstractController
                 // On sauvegarde les images 
                 $manager->persist($image);
             }
+
+            
             $coverImage = $form->get('coverImage')->getData();
 
             // this condition is needed because the 'brochure' field is not required
@@ -98,7 +102,7 @@ class AdController extends AbstractController
                 $ad->setCoverImage($newFilename);
             }
 
-
+            $ad->setUser($this->getUser());
             $manager ->persist($ad); // Persist = Validation de données 
             $manager->flush(); // ça les envoie en BDD 
 
@@ -121,7 +125,7 @@ class AdController extends AbstractController
      * @return Response
      */
 
-    public function show($slug,Ad $ad){
+    public function show($slug,AdRepository $repo){
 
         // Je récupere l'annonce qui correspond au slug ( l'alias )
         // X = 1 champ de la table, à préciser à la place de X 
@@ -129,7 +133,7 @@ class AdController extends AbstractController
         // findByX = renvoi un tableau d'annonces ( plusieurs elements )
 
         // findOneByX = renvoi un élément 
-        // $ad = $repo->findOneBySlug($slug);
+        $ad = $repo->findOneBySlug($slug);
         return $this->render('ad/show.html.twig',['ad'=>$ad]);
     }
 
@@ -149,7 +153,7 @@ class AdController extends AbstractController
 
             foreach($ad->getImages() as $image){
 
-                $image = setAd($ad);
+                $image -> setAd($ad);
 
                 $manager->persist($image);
             }
@@ -162,6 +166,6 @@ class AdController extends AbstractController
             return $this->redirectToRoute('ads_single',['slug'=>$ad->getSlug()]);
         }
 
-        return $this->render('ad/edit.html.twig',['form'->$form->createView(), 'ad'=>$ad]);
+        return $this->render('ad/edit.html.twig',['form'=>$form->createView(),'ad'=>$ad]);
     }
 }

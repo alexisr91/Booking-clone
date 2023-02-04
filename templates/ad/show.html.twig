@@ -53,28 +53,30 @@
         </div>
 
         <div class="col">
-
+        {% set a = ad.user %}
             <div class="row">
 
                 <div class="col-4">
-
-                 <img src="https://picsum.photos/id/1003/120">
-
+                    <a href="{{path('user_show', {'slug':a.slug})}}">
+                        <img src="{{a.avatar}}" alt="{{a.firstname}} {{a.lastname}}" class="avatar avatar-medium">
+                    </a>
+                    
                 </div>
 
                 <div class="col">
-
-                    <h3>John Doe</h3>
-
-                    <span class="badge badge-warning">3 annonces </span>
+                    <a href="{{path('user_show', {'slug':a.slug})}}">
+                        <h3>{{a.fullname}}</h3>
+                    </a> 
+                    <span class="badge badge-warning">{{a.ads| length}} {% if a.ads| length > 1 %} annonces{% else %} annonce {% endif %}</span>
                 </div>
 
             </div>
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur adipisci magnam harum fugit nesciunt sed temporibus sequi dicta officia obcaecati error consequuntur quisquam, eveniet eius aliquam ratione ullam? Tenetur, aliquid.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur adipisci magnam harum fugit nesciunt sed temporibus sequi dicta officia obcaecati error consequuntur quisquam, eveniet eius aliquam ratione ullam? Tenetur, aliquid.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur adipisci magnam harum fugit nesciunt sed temporibus sequi dicta officia obcaecati error consequuntur quisquam, eveniet eius aliquam ratione ullam? Tenetur, aliquid.</p>
+            <div class="col py-3">
 
+                {{a.introduction | raw }}
+
+            </div>
         </div>
     </div>
 
