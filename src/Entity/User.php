@@ -103,6 +103,11 @@ class User implements UserInterface // UserInterface = gestion de l'utilisateur 
 
     private $hash;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
+     */
+    private $userRoles;
+
     public function getFullName(){
         return "{$this->firstname} {$this->lastname}";
     }
@@ -110,6 +115,7 @@ class User implements UserInterface // UserInterface = gestion de l'utilisateur 
     public function __construct()
     {
         $this->ads = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
 
      /**
@@ -159,13 +165,19 @@ class User implements UserInterface // UserInterface = gestion de l'utilisateur 
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles()
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles = $this->userRoles->map(function($role){
 
-        return array_unique($roles);
+            return $role->getTitle();
+        })->toArray();
+
+        $roles[]='ROLE_USER';
+
+        return $roles;
+
+    return ['ROLE_USER'];    
+
     }
 
     public function setRoles(array $roles): self
@@ -341,6 +353,33 @@ class User implements UserInterface // UserInterface = gestion de l'utilisateur 
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRoles->removeElement($userRole)) {
+            $userRole->removeUser($this);
+        }
 
         return $this;
     }

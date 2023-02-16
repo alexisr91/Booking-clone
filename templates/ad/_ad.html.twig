@@ -1,4 +1,5 @@
 
+    
     {% set url= path('ads_single',{'slug':ad.slug}) %}
         <div class="d-flex flex-row col-md-4">
             
@@ -10,7 +11,11 @@
                     </a>
                         <h4 class="card-title mt-3">{{ad.title}}</h4>
                         <p class="card-text">{{ad.introduction}}</p>
-                        <a href="{{path('ads_single',{'slug':ad.slug})}}" class="btn btn-warning">+ d'infos</a>
+                        <a href="{{path('ads_single',{'slug':ad.slug})}}" class="btn btn-warning btn-sm">+ d'infos</a>
+                        {% if app.user and app.user == ad.user %}
+                             <a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-info btn-sm">Modifier l'annonce</a>
+                            
+                        {% endif %}
                 </div>
 
                 <div class="card-footer text-muted">

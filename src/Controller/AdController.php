@@ -3,6 +3,9 @@
 namespace App\Controller; // Sert à identifier 
 
 
+
+
+use App\Entity\Ad;
 use App\Entity\Image;
 use App\Form\AnnonceType;
 use EasySlugger\Slugger; 
@@ -14,9 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use App\Entity\Ad; // Sert à recuperer ce que tu as identifier ( require ) mais plus performant et simple et indispensable 
 
 // -> : pour les objets, les fonctions    / => : les tableaux 
 
@@ -43,6 +47,7 @@ class AdController extends AbstractController
     /**
     * Permet de créer une annonce 
     * @Route("/ads/new",name="ads_create")
+    * @IsGranted("ROLE_USER")
     * @return response
     */
     public function create(Request $request,EntityManagerInterface $manager){
@@ -140,10 +145,10 @@ class AdController extends AbstractController
     /**
      * Permet d'éditer et de modifier un article 
      * @Route("/ads/{slug}/edit", name="ads_edit")
-     * 
+     * @Security("is_granted('ROLE_USER') and user === ad.getUser()", statusCode=404 ,message="Cette annonce ne vous appartient pas vous ne pouvez pas la modifier")
      * @return Response 
      */
-    public function edit(Ad $ad,Request $request,ObjectManager $manager){
+    public function edit(Ad $ad,Request $request,EntityManagerInterface $manager){
 
         $form = $this->createForm(AnnonceType::class,$ad);
         $form->handleRequest($request);
@@ -167,5 +172,22 @@ class AdController extends AbstractController
         }
 
         return $this->render('ad/edit.html.twig',['form'=>$form->createView(),'ad'=>$ad]);
+    }
+
+
+    /**
+     * Suppression d'une annonce
+     * @Route("/ads/{slug}/delete", name="ads_delete")
+     * @Security("is_granted('ROLE_USER') and user == ad.getUser()", message="Vous n'avez pas le droit d'accéder à cette ressource ")
+     * @param Ad $ad
+     * @return void
+     */
+    public function delete(Ad $ad,EntityManagerInterface $manager){
+
+        $manager->remove($ad);
+        $manager->flush();
+        $this->addFlash("Success","L'annonce <em>{$ad->getTitle()}</em> a bien été supprimée");
+
+        return $this->redirectToRoute("ads_list");
     }
 }

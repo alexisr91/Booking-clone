@@ -2,13 +2,13 @@
 
 // add-collection-widget.js
 $(document).ready(function () {
-    $('.add-another-collection-widget').click((e) => { // event bouton 
-        const list = $($(this).attr('data-list-selector'));
+    $('.add-another-collection-widget').on("click",function(e){ // event bouton 
+        const list = $($(this).data('list-selector'));
         // Try to find the counter of the list or use the length of the list
-        const counter = list.data('widget-counter') || list.children().length;
-
+        let counter = list.data('widget-counter') || list.children().length;
+        
         // grab the prototype template
-        let newWidget = list.attr('data-prototype').replace(/__name__/g, counter);
+        let newWidget = list.data('prototype').replace(/__name__/g, counter);
         // replace the "__name__" used in the id and name of the prototype
         // with a number that's unique to your emails
         // end name attribute looks like name="contact[emails][2]"
