@@ -1,0 +1,46 @@
+<?php 
+
+namespace App\Form\DataTransformer;
+
+use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
+
+class FrToDateTimeTransformer implements DataTransformerInterface{
+
+    // Transforme les données originelles pour qu'elles puissent s'afficher dans un formulaire 
+    public function transform($date){
+
+        if($date === null){
+            return '';
+        }
+
+        // Retourne une date en FR 
+        return $date->format('d/m/Y');
+        }
+
+
+    // C'est l'inverse, elle prend ladonnée qui arrive du formulaire et la remet dans le format que l'on attend
+
+    public function reverseTransform($dateFr){
+
+    if($dateFr === null){
+
+        // exception
+        throw new TransformationFailedException("Fournir une date"); 
+    }
+
+
+    $date = \DateTime::createFromFormat('d/m/Y',$dateFr);
+
+    if($date === false){
+
+        // exception
+
+        throw new TransformationFailedException("Le format de la  date n'est pas correcte");
+    }
+
+    return $date;
+
+    }
+
+}

@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Form\DataTransformer;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
+class FrToDateTimeTransformer extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add('startDate', DateType::class, [
+          'format' => 'd/m/Y',
+          'mapped'=>false,
+          'widget' => 'single_text',
+          'html5' => false, 
+          'label' => 'Date de fin',
+          'input'  => 'datetime',
+          'attr' => ['class' => 'datepicker']]
+        );
+    }
+}

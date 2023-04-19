@@ -19,9 +19,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * fields={"title"},
  * message="Une autre annonce a déjà ce titre, veuillez en changer"
  * )
+
  */
-class Ad
+class Ad implements \ArrayAccess
 {
+
+    private $container;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -80,10 +84,16 @@ class Ad
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="ad")
+     */
+    private $bookings;
+
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
      /**
@@ -102,6 +112,32 @@ class Ad
 
         }
      }
+
+    public function getNotAvailableDays(){
+
+        $notAvailableDays = [];
+
+        foreach($this->bookings as $booking){
+
+            // $resultat = range(10,20,2); =>[10,12,14,16,18,20]
+            // $resultat = range(03-20-2019,03-25-2019) =>[]
+
+            $resultat = range(
+                             $booking-> getStartdate()->getTimeStamp(),
+                             $booking->getEndDate()->getTimestamp(),
+                             24 * 60 * 60
+            );
+
+            $days = array_map(function($dayTimestamp){
+
+                return new \Datetime(date('Y-m-d',$dayTimestamp));
+            },$resultat);
+
+            $notAvailableDays = array_merge($notAvailableDays,$days);
+        }
+
+        return $notAvailableDays;
+    }
 
     public function getId(): ?int
     {
@@ -234,4 +270,64 @@ class Ad
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getAd() === $this) {
+                $booking->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /*
+    * No error
+    */
+    public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this->container[] = $value;
+        } else {
+            $this->container[$offset] = $value;
+        }
+    }
+
+    /*
+    * No error
+    */
+    public function offsetExists($offset) {
+        return isset($this->container[$offset]);
+    }
+
+    /*
+    * No error
+    */
+    public function offsetUnset($offset) {
+        unset($this->container[$offset]);
+    }
+
+    public function offsetGet($offset) {
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
+    }
+
 }

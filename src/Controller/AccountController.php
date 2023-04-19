@@ -7,15 +7,14 @@ use App\Form\AccountType;
 use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
-use Symfony\Component\Form\FormError;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -173,7 +172,7 @@ class AccountController extends AbstractController
         /**
          * Permet d'afficher ma page mon compte 
          * @Route("/account", name="account_home")
-         * @IsGranted("ROLE_USER")
+         * 
          * 
          * @return Response
          */
@@ -181,4 +180,16 @@ class AccountController extends AbstractController
 
             return $this->render("user/index.html.twig",['user'=>$this->getUser()]);
          }
+
+
+        /**
+         * Affiche la liste des réserfvations de l'utilisateur 
+         * @Route("/account/bookings", name="account_bookings")
+         * 
+         * @return Response
+         */
+        public function bookings(){
+
+            return $this->render('account/bookings.html.twig');
+        } 
 }

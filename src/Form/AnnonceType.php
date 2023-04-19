@@ -49,14 +49,15 @@ class AnnonceType extends AbstractType
             ->add('rooms',IntegerType::class,$this->getConfiguration('Nombre de chambres','Nombre de chambres'))
             ->add('price',MoneyType::class,$this->getConfiguration('Prix','Prix des chambres/nuit'))
             ->add('images',CollectionType::class,['entry_type'=>ImageType::class,'allow_add'=>true,'allow_delete'=>true,'allow_delete'=>true]) // Autorise l'ajout et la suppression de nouvelles entrées images 
-            
+            ->add('save', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Ad::class,
+            'data_class' => null,
+            'ad' => Ad::class,
         ]);
     }
 }

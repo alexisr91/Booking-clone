@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire de reservation{% endblock %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1 class="h2"> Réservation pour l'annonce <br>
+            <small>{{ad.title}}</small>
+        </h1>
+            
+            <h6>Vous allez reserver le bien de <strong><em>{{ad.user.fullName}}</em></strong>.Voir plus de bien de ce 
+            <a href="{{path('user_show',{'slug':ad.user.slug})}}">loueur</a>.</h6>
+
+            {{form_start(form)}}
+
+            <div class="row">
+                <div class="col">
+
+                    {{form_row(form.startDate)}}
+
+
+                </div>
+
+                <div class="col-4 mb-4">
+
+                    {{form_row(form.endDate)}}
+
+                </div>
+
+                <div class="col-4 mb-4">
+                    <h4>Montant du séjour : <span id="amount">...</span> &euro;</h4>
+                    <span id="days">0</span> nuit(s) à {{ad.price}} &euro; /nuit
+
+                </div>
+            </div>
+            
+            {{form_widget(form)}}
+
+            <h3 class="mt-2"> Vous avez un commentaire ? </h3>
+
+            {{form_row(form.comment)}}
+
+            <button type="submit" class="btn btn-primary mt-4">Réserver !</button>
+            <a href="{{path('ads_single',{'slug':ad.slug})}}" class="btn btn-secondary mt-4">Retour</a>
+
+            {{form_end(form)}}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %} 
+{{parent()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(document).ready(function(){
+
+        $('.datepicker').datepicker({
+        
+        format:'dd/mm/yyyy',
+        startDate: new Date(),
+        locale: 'FR',
+        datesDisabled:[
+            
+        ],
+    });
+
+    $('#booking_startDate,#booking_endDate').on('change',calculateAmount);
+});
+
+
+    function calculateAmount(){
+        // Calculer l'intervale entre 2 dates
+
+        // date d'ajd 
+
+        // 2023-04-19
+
+        const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(d+)\/(\d{4})/,'$3-$2-$1'));
+
+        const startDate = new Date($('#booking_startDate').val(/(\d+)\/(d+)\/(\d{4})/,'$3-$2-$1'));
+
+        // On compare les 2 pour trouver le nombre de jours
+
+
+        if(startDate && endDate && startDate < endDate){
+
+
+        const dayTime = 24*60*80*1000;
+        const interval = endDate.getTime() - startDate.getTime();
+        const days = interval / dayTime;
+        
+        // On multiplie l'interval par le prix du bien 
+
+        const amount = days * {ad,price};
+
+        // Insertion des nombres dans la page 
+
+        $('#days').text(days);
+
+        $('#amount').text(amount.toLocaleString('fr-FR'));
+        }
+
+    }
+</script>
+{% endblock %}

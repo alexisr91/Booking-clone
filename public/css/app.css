@@ -45,3 +45,14 @@ footer{position:sticky; bottom:0; width: 100%; color: #f3efef;}
 
 .navbar-expand-lg .navbar-nav .dropdown-menu{left: 52px;}
 
+/* Booking annonce */ 
+
+a{color: indianred}
+a:hover{color: indianred}
+
+/* Calendrier plugin */
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
+    color: indianred!important;
+    text-decoration: line-through;
+}

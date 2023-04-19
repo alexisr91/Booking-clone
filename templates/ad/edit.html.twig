@@ -37,9 +37,8 @@
         class="add-another-collection-widget btn btn-primary"
         data-list-selector="#images-fields-list">Ajouter une image</button>
 
-    {{form_row(form.save)}}
+    {{form_row(form.save, {'label': 'Enregistrer', 'attr': {'class': 'btn btn-primary'}})}}
     
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
     {{ form_end(form) }} 
 </div>
 {% endblock %}

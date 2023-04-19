@@ -178,7 +178,7 @@ class AdController extends AbstractController
     /**
      * Suppression d'une annonce
      * @Route("/ads/{slug}/delete", name="ads_delete")
-     * @Security("is_granted('ROLE_USER') and user == ad.getUser()", message="Vous n'avez pas le droit d'accéder à cette ressource ")
+     * @Security("is_granted('ROLE_USER') and user == ad.getUser()", message="Vous n'avez pas le droit d'accéder à cette ressource")
      * @param Ad $ad
      * @return void
      */
