@@ -1,58 +1,158 @@
-body{background-color: #f3efef; height: 100vh;}
-.container{margin-top:1.2em;}
+body {
+    background-color: #f3efef;
+    height: 100vh;
+}
 
-.ad-title{background-size:cover;background-position:center center;padding:1em;}
+.container {
+    margin-top: 1.2em;
+}
 
-.ad-title .container{margin-top: 0;}
+.ad-title {
+    background-size: cover;
+    background-position: center center;
+    padding: 1em;
+}
 
-.ad-title h1, .ad-title p{color:#fff; text-shadow: 3px 3px 3px rgba(0,0,0,0.5);}
+.ad-title .container {
+    margin-top: 0;
+}
 
-.carousel-option{text-shadow: 3px 3px 3px rgba(0,0,0,0.5);}
+.ad-title h1,
+.ad-title p {
+    color: #fff;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-option {
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
 
 
-footer{position:sticky; bottom:0; width: 100%; color: #f3efef;}
+footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    color: #f3efef;
+}
 
 
 /* Form */
-#images-fields-list li > div{ display:flex; flex-wrap: wrap; flex:0 0 85%; max-width: 85%; width: 100%; padding-left: 15px; padding-right: 15px}
-#images-fields-list li .form-group{flex:0 0 50%; max-width: 50%; padding-left: 15px; padding-right: 15px; width: 100%;}
+#images-fields-list li>div {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 85%;
+    max-width: 85%;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px
+}
 
-.add-another-collection-widget{ margin-bottom: 8px;} 
+#images-fields-list li .form-group {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+}
 
-#images-fields-list li{
-    display:flex;
+.add-another-collection-widget {
+    margin-bottom: 8px;
+}
+
+#images-fields-list li {
+    display: flex;
     flex-wrap: wrap;
     margin-right: 100px;
 }
 
-#images-fields-list li .button-delete{
-    display:flex; flex-wrap: wrap; flex:0 0 15%; max-width: 15%; width: 100%; padding-left: 2px; padding-right: 15px; max-height: 50px; margin-top: 22px;
+#images-fields-list li .button-delete {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 15%;
+    max-width: 15%;
+    width: 100%;
+    padding-left: 2px;
+    padding-right: 15px;
+    max-height: 50px;
+    margin-top: 22px;
 }
 
-@media (max-width:780px){
-    #images-fields-list li .form-group, #images-fields-list li > div{flex:0 0 100%; max-width: 100%; padding-left: 15px; padding-right: 15px; width: 100%;}
+@media (max-width:780px) {
+
+    #images-fields-list li .form-group,
+    #images-fields-list li>div {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        width: 100%;
+    }
 
 }
 
 /* */
 
-.avatar{ width:128px; height: 128px; border-radius: 50%;}
+.avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    margin-right: 0.2em;
+}
 
-.avatar-medium{ max-width: 64px; max-height: 64px;}
-.avatar-small{max-width: 32px; max-height: 32px;}
+.avatar-medium {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.avatar-small {
+    max-width: 32px;
+    max-height: 32px;
+}
+
+
+.avatar-xs {
+    max-width: 26px;
+    max-height: 26px;
+}
 
 /* menu */
 
-.navbar-expand-lg .navbar-nav .dropdown-menu{left: 52px;}
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    left: 52px;
+}
 
-/* Booking annonce */ 
+/* Booking annonce */
 
-a{color: indianred}
-a:hover{color: indianred}
+a {
+    color: indianred
+}
+
+a:hover {
+    color: indianred
+}
 
 /* Calendrier plugin */
 
-.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
-    color: indianred!important;
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+    color: indianred !important;
     text-decoration: line-through;
+}
+
+/* Section commentaire */
+
+
+
+blockquote {font-style: oblique;color: rgb(90, 81, 81);}
+
+.rating i{color:goldenrod;}
+
+small{text-transform: small;}
+
+h6 .row{ background-color: skyblue; padding: 1em;}
+
+/* Section administrateur */
+
+.table td, .table th{
+    padding: -1rem;
 }

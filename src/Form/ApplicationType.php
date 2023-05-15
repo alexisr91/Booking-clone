@@ -9,22 +9,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ApplicationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('startDate')
-            ->add('endDate')
-            ->add('createdAt')
-            ->add('amount')
-            ->add('booker')
-            ->add('ad')
-        ;
-    }
+    /**
+     * 
+     * Permet d'avoir la configurtion de base d'un champ
+     * 
+     * @param string $label
+     * @param string $placeholder
+     * @param array $options
+     * @return array
+     */
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Booking::class,
-        ]);
-    }
+     protected function getConfiguration($label,$placeholder,$options=[]){
+        return array_merge_recursive([
+                            'label'=>$label,
+                            'attr'=>['placeholder'=>$placeholder]                      
+                             ],
+                            $options);
+     }
 }

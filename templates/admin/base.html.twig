@@ -6,12 +6,12 @@
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.css" integrity="sha512-Z0kTB03S7BU+JFU0nw9mjSBcRnZm2Bvm0tzOX9/OuOuz01XQfOpa0w/N9u6Jf2f1OAdegdIPWZ9nIZZ+keEvBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="/css/app.css">
-      
+        <link rel="stylesheet" href="/css/admin.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
 
-      {% include 'inc/header.html.twig' %}
+      {% include 'admin/inc/header.html.twig' %}
       {% for label,messages in app.flashes%}
         <div class="container">
           <div class="alert alert-{{ label }}">
@@ -26,7 +26,7 @@
 
         {% block header %}{% endblock %}
         {% block body %}{% endblock %}
-        {% include 'inc/footer.html.twig' %}
+        {% include 'admin/inc/footer.html.twig' %}
         {% block javascripts %}
         
         {% endblock %}

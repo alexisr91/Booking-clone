@@ -1,0 +1,16 @@
+
+/** Partie Admin */ 
+
+
+.nav-item{
+    margin-right: 1rem;
+    white-space: nowrap;
+}
+
+.badge{
+    color:black;
+}
+
+.navbar-expand-lg .navbar-collapse{
+    font-size: 0.64rem;
+}
