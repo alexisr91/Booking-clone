@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AnnonceType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\Pagination;
 use App\Repository\AdRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,12 +15,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAdController extends AbstractController
 {
     /**
-     * @Route("/admin/ads", name="app_admin_ads_list")
+     * @Route("/admin/ads/{page<\d+>?1}", name="app_admin_ads_list",requirements={"page":"\d+"})
      */
-    public function index(AdRepository $repo)
+    public function index(AdRepository $repo,$page,Pagination $paginationService)
     {
+
+        $paginationService->setEntityClass(Ad::class)
+                          ->setPage($page)
+                         //  ->setRoute('admin_ads_list')
+                         ;
+        // find()= > Trouve un objet par rapport à son id 
+        // FindOneBy => Trouve une donnée via des critères de recherche 
+        // findBy() => Trouve plusieurs données grace à des criteres
+        
+                
         return $this->render('admin/ad/index.html.twig', [
-            'ads'=>$repo->findAll()
+            'pagination'=> $paginationService
         ]);
     }
 
