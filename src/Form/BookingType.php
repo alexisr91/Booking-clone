@@ -53,7 +53,7 @@ class BookingType extends AbstractType
                 'format' => 'd/m/Y',
                 'widget' => 'single_text',
                 'html5' => false, 
-                'label' => 'Date de fin',
+                'label' => 'Date de début',
                 'input'  => 'datetime',
                 'attr' => ['class' => 'datepicker']])
 

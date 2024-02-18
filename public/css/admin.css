@@ -14,3 +14,31 @@
 .navbar-expand-lg .navbar-collapse{
     font-size: 0.64rem;
 }
+/* Section administrateur */
+
+.table td, .table th{
+    padding: -1rem;
+}
+
+
+/* Cacher la chaine de caractere Images provenant de je ne sais  dans la section edit ANNONCE */ 
+.form-group .col-form-label{
+    visibility: hidden;
+}
+
+/* padding sur le form de l'edit annonce côté admin */
+
+#annonce .form-group{
+    padding: 8px;
+}
+
+.form-group input{
+    background-color: whitesmoke;
+}
+
+/* pagination admin booking / gestion des reservations */
+
+div .pagination .page-item .page-link:hover{
+    background-color: black;
+    color:whitesmoke;
+}

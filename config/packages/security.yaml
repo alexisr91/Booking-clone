@@ -28,15 +28,13 @@ security:
             anonymous: true
             provider: in_database
             form_login:
-                default_target_path: ads_list
+                default_target_path: admin_dashboard
                 login_path: admin_account_login
                 check_path: admin_account_login
             logout:
                 path: admin_account_logout
                 target: homepage
-
-
-
+        # Le form passe par le controller et ensuite par admin_dashboard, si on a pas de données de session, le default target path 
         main:
             anonymous: true
             provider: in_database
@@ -46,6 +44,7 @@ security:
             logout:
                 path: account_logout
                 target: account_login
+            
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

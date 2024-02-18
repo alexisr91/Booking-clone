@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Ad;
 use App\Form\AnnonceType;
 use App\Service\Pagination;
@@ -12,17 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+// Pagination / Modification des annonces et suppression avec les méthodes 
+
 class AdminAdController extends AbstractController
 {
     /**
      * @Route("/admin/ads/{page<\d+>?1}", name="app_admin_ads_list",requirements={"page":"\d+"})
      */
-    public function index(AdRepository $repo,$page,Pagination $paginationService)
+    public function index($page,Pagination $paginationService)
     {
 
         $paginationService->setEntityClass(Ad::class)
                           ->setPage($page)
-                         //  ->setRoute('admin_ads_list')
+                    
                          ;
         // find()= > Trouve un objet par rapport à son id 
         // FindOneBy => Trouve une donnée via des critères de recherche 
@@ -54,7 +57,7 @@ class AdminAdController extends AbstractController
             $manager->persist($ad);
             $manager->flush();
 
-            $this->addFlash('success',"L'annonce a bien été modifié");
+            $this->addFlash('success',"<div class='text-center'>L'annonce a bien été modifié</div>");
         }
 
         return $this->render('admin/ad/edit.html.twig',[

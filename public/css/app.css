@@ -1,7 +1,19 @@
+
+html {
+	margin: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+
+
+
 body {
     background-color: #f3efef;
     height: 100vh;
+    overflow-x: hidden; 
 }
+
 
 .container {
     margin-top: 1.2em;
@@ -27,12 +39,216 @@ body {
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 
-
+/* footer */
 footer {
-    position: sticky;
+    position: none;
+    padding: 2em 2em 2em 3.5em!important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     bottom: 0;
     width: 100%;
-    color: #f3efef;
+    color: white;
+    background-color: black;
+}
+/* Section meilleur annonceur */
+
+.bestannouncer{
+    padding-left: 0px !important;
+}
+
+/* Cookie */
+
+#cookieBanner{
+    display: flex;
+    z-index: 2;
+    position: absolute;
+    align-items: center;
+    background-color: #F1CA46;
+    border-radius: 2px 2px 2px 2px;
+    border: 1.4px solid black;
+    width: 53em;
+    height:25vh;
+    top: 20em;
+    left:0.7em;
+    animation: 4s cookieBanner ease-in-out;
+}
+
+/* MEDIA QUERY terminaux portables */
+
+@media screen and (min-width: 600px) {
+     #cookieBanner{
+      width: 70%;
+      height: 7vh;
+      top: 60em;
+    }
+
+    #cookieBanner img{
+        width: 10%;
+        height: 4vh!important;
+    }
+
+    #cookieBanner .kakao{
+        width: 6.3em!important;
+        height: 6.3em!important;
+    }
+}  
+
+/* MEDIA QUERY macbook */
+@media screen and (min-width: 1200px){
+    #cookieBanner{
+        width: 45em;
+        height:17vh;
+        top: 17em;
+
+    }
+
+    #cookieBanner img{
+        width: 11%!important;
+        height: 45%!important;
+    }
+}
+
+
+/* Media query terminaux monitors*/
+@media screen and (min-width: 1920px){
+    #cookieBanner{
+        width: 45em;
+        height:14vh;
+        bottom: 35em;
+
+    }
+
+    #cookieBanner img{
+        width: 10%!important;
+        height: 45%!important;
+    }
+}
+
+
+
+@keyframes cookieBanner{
+    0%{ 
+        opacity: 0;
+        transform: translateX(-3000px);
+    }
+
+    50%{
+        opacity: 0.5;
+        transform: translateX(-1500px);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateX(10px);
+    }
+}
+
+#cookieBanner .text{
+    position: relative;
+    max-width: 55%;
+}
+
+
+#cookieBanner img{
+    display: flex;
+    max-width: 25%;
+    top: 1.8em;
+    height:16vh;
+    margin: 0em 1.2em 0em 0;
+    padding: 1px 1px 1px 1px;
+}
+
+#cookieBanner .kakao{
+    left:3em;
+    width: 8em;
+    height: 8em;
+    margin-right: -3em;
+}
+
+#cookieBanner button:hover{
+    background-color: #fff;
+    color: black;
+    transition: 1s;
+}
+
+
+/* RGPB MODAL */
+
+
+#modal{
+    position: relative;
+    z-index: 10;
+    right: 10em;
+    bottom:12em;
+    color: black;
+    padding: 1em 1em 1em 1em;
+    border-radius: 1em 1em 1em 1em;
+    width: 29%;
+    margin: 0 auto;
+    border: 1.4px solid black;
+    animation: 4s modal ease-in-out;
+    height: 40vh;
+    background-color: #F1CA46;
+    overflow-x: hidden;
+}
+
+
+/* MEDIA QUERIES : MODAL RGPD*/ 
+
+/* terminal moniteur */
+@media screen and (min-width: 1920px){
+    #modal{
+        width: 45em;
+        height:10vh;
+        bottom: 2em;
+        right: 2em;
+    }
+}
+
+
+/* terminal portable */
+@media screen and (min-width: 600px) {
+    #modal{
+     width: 60%;
+     height: 14em;
+     top: 2em;
+     left:14em;
+   }
+}
+
+@keyframes modal{
+    0%{
+        opacity:0;
+        transform: translateX(50px);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+
+#modal #modal-content button{
+    color:whitesmoke;
+    background-color: black;
+    border-radius: 1px 1px 1px 1px;
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin: 0 auto;
+}
+
+#modal #modal-content button:hover{
+    color:black;
+    background-color: white;
+    transition: 0.8s ease-in-out;
+}
+
+#modal #modal-content img{
+    position: relative;
+    width: 4em;
+    height: 4em;
+    left:13em;
 }
 
 
@@ -117,9 +333,85 @@ footer {
 
 /* menu */
 
-.navbar-expand-lg .navbar-nav .dropdown-menu {
+.navbar-expand-lg .navbar-nav .dropdown-menu-right {
     left: 52px;
 }
+
+.logo-maison{
+    filter:contrast(160%);
+}
+
+/* dropdown menu */
+
+.dropdown-item:hover{
+    background-color: black;
+    color: whitesmoke;
+    transition: background-color 0.25s, color 0.25s;
+}
+
+/* Homepage */
+
+h1{
+    opacity: 1;
+    animation: titre 3s ease-in-out;
+}
+
+@keyframes titre{
+    0%{
+        opacity:0;
+        transform: translateY(-7px);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(-1px);
+    }
+}
+
+.text-ipsum{
+    opacity: 1;
+    animation: text-ipsum 3s ease-in-out;
+}
+
+@keyframes text-ipsum{
+    0%{
+        opacity:0;
+        transform: translateY(-7px);
+    }
+
+
+    100%{
+        opacity: 1;
+        transform: translateY(-1px);
+    }
+}
+/* Connexion user*/
+
+.row .form-group .btn:hover{
+    background-color: goldenrod;
+    transition: background-color 0.6s;
+}
+
+/* Register user */
+
+.container .btn:hover{
+    background-color: goldenrod;
+    transition: background-color 0.6s;
+}
+/* Booking partie reservation*/ 
+
+#book:hover{
+    color: black;
+    background-color: white;
+    transition: background-color 0.8s, color 0.8s;
+}
+
+#book-retour:hover{
+    color: white;
+    background-color: goldenrod;
+    transition: background-color 0.8s, color 0.8s;
+}
+
 
 /* Booking annonce */
 
@@ -129,6 +421,27 @@ a {
 
 a:hover {
     color: indianred
+}
+
+/* Reservation du booking ( account/bookings )  */
+
+.container div div{
+    padding-top: 4px;
+}
+
+
+.container div div .img-fluid{
+    padding-left: 2px;
+    top: 4em;
+}
+
+
+/* */
+
+.container .book-ad:hover{
+    background-color: royalblue;
+    color: white;
+    transition: background-color 0.8s, color 0.8s
 }
 
 /* Calendrier plugin */
@@ -151,8 +464,8 @@ small{text-transform: small;}
 
 h6 .row{ background-color: skyblue; padding: 1em;}
 
-/* Section administrateur */
 
-.table td, .table th{
-    padding: -1rem;
-}
+/** EFFECTS **/
+
+
+/* Homepage */

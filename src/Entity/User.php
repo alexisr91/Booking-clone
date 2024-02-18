@@ -444,11 +444,12 @@ class User implements UserInterface // UserInterface = gestion de l'utilisateur 
         return $this;
     }
 
+    // On recupere le getter et le setter de l'AD et de l'auteur pour supprimer et le rendre à null
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getAuthor() === $this) {
+            if ($comment->getAd() === $this) {
                 $comment->setAuthor(null);
             }
         }

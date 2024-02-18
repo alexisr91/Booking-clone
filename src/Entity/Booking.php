@@ -3,12 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\BookingRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\GreaterThan;
 
 /**
- * @ORM\Entity(repositoryClass=BookingRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\BookingRepository::class)
  * @ORM\HasLifecycleCallbacks()
  */
 class Booking
@@ -42,12 +40,12 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Le format doit etre une date")
-     * @GreaterThan(propertyPath="startDate",message="La date de départ doit etre plus eloignée quela date d'arrivée")
+     * @Assert\GreaterThan(propertyPath="startDate",message="La date de départ doit etre plus eloignée que la date d'arrivée")
      */
     private $endDate;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -60,7 +58,6 @@ class Booking
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
-
 
     /**
      * Callback appelé à chaque fois qu'on crée une reservation
@@ -186,7 +183,7 @@ class Booking
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }

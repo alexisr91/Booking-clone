@@ -37,13 +37,13 @@ class RegistrationType extends AbstractType
     {
         $builder
         ->add('firstname',TextType::class,$this->getConfiguration("Nom", "Votre nom..."))
-        ->add('lastname',TextType::class,$this->getConfiguration("Prenom", "Votre prenom..."))
+        ->add('lastname',TextType::class,$this->getConfiguration("Prénom", "Votre prenom..."))
         ->add('email',EmailType::class,$this->getConfiguration("Email","Un email valide"))
         ->add('password',PasswordType::class,$this->getConfiguration("Mot de passe","Choisissez un bon mot de passe "))
         ->add('passwordConfirm',PasswordType::class,$this->getConfiguration("Confirmation mot de passe","Confirmez votre mot de passe"))
         ->add('avatar',UrlType::class,$this->getConfiguration("Avatar","Url de votre avatar"))
-        ->add('Introduction',TextType::class,$this->getConfiguration("introduction","Description courte pour vous presenter"))
-        ->add('description',TextareaType::class,$this->getConfiguration("description","Description détaillée"))
+        ->add('Introduction',TextType::class,$this->getConfiguration("Introduction","Description courte pour vous presenter"))
+        ->add('description',TextareaType::class,$this->getConfiguration("Description","Description détaillée"))
         ;
     }
 

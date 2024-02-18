@@ -166,19 +166,25 @@ class Ad implements \ArrayAccess
             // $resultat = range(10,20,2); =>[10,12,14,16,18,20]
             // $resultat = range(03-20-2019,03-25-2019) =>[]
 
+            // getTimeStamp est un nombre de sec ecoule depuis le 1er janvier 1970
             $resultat = range(
                              $booking-> getStartdate()->getTimeStamp(),
                              $booking->getEndDate()->getTimestamp(),
                              24 * 60 * 60
             );
 
+            // 24 correspond à l'heure, 60 minutes, 60 secondes.
+
             $days = array_map(function($dayTimestamp){
-
+                // array_map crée un nouveau format de tableau de $dayTimestamp et on retourne la fonction date et on passe $days en 2eme parametre qui sera reconvertit ne y-m-d
                 return new \Datetime(date('Y-m-d',$dayTimestamp));
-            },$resultat);
 
-            $notAvailableDays = array_merge($notAvailableDays,$days);
+            },$resultat); // On applique à la variable résultat 
+
+            $notAvailableDays = array_merge($notAvailableDays,$days); // On fusionne les 2 tableaux avec la méthode array_merge pour savoir ce qui est available ou pas 
         }
+
+
 
         return $notAvailableDays;
     }

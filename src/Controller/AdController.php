@@ -6,23 +6,20 @@ namespace App\Controller; // Sert à identifier
 
 
 use App\Entity\Ad;
-use App\Entity\Image;
 use App\Form\AnnonceType;
 use EasySlugger\Slugger; 
 use App\Repository\AdRepository;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-// -> : pour les objets, les fonctions    / => : les tableaux 
+// accès des -> : pour les objets, les fonctions    / => : les tableaux 
+// CRUD des annonces côté users 
 
 class AdController extends AbstractController
 {
@@ -51,12 +48,9 @@ class AdController extends AbstractController
     * @return response
     */
     public function create(Request $request,EntityManagerInterface $manager){
-        
         // fabricant de formulaire : FORMBUILDER 
 
         $ad = new Ad(); // On crée/instancie une annonce fantôme dont on sert comme modèle 
-
-
  
         // On lance la fabrication et la configuration de notre formulaire 
         $form = $this->createForm(AnnonceType::class,$ad);
@@ -80,7 +74,6 @@ class AdController extends AbstractController
                 // On sauvegarde les images 
                 $manager->persist($image);
             }
-
             
             $coverImage = $form->get('coverImage')->getData();
 
@@ -113,11 +106,9 @@ class AdController extends AbstractController
 
             $this->addFlash('success',"Annonce <strong>{$ad->getTitle()}</strong> crée avec succès");
 
-
             return $this->redirectToRoute('ads_single',['slug'=>$ad->getSlug()]); // 
 
         }
-       
 
         // Render = a quel vue est associé le controller, le 2eme parametre est le tableau  
             return $this->render('ad/new.html.twig',['form'=>$form->createView()]);
@@ -143,7 +134,7 @@ class AdController extends AbstractController
     }
 
     /**
-     * Permet d'éditer et de modifier un article 
+     * Permet d'éditer et de modifier un article avec le rôle admin, dans cette annotation on crée également la fonction Twig  is_Granted pour determiner le role de l'admin
      * @Route("/ads/{slug}/edit", name="ads_edit")
      * @Security("is_granted('ROLE_USER') and user === ad.getUser()", statusCode=404 ,message="Cette annonce ne vous appartient pas vous ne pouvez pas la modifier")
      * @return Response 

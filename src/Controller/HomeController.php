@@ -1,35 +1,36 @@
 <?php 
+// Compiled language is faster than interpreted language
 
-// namespace : chemin du controller
-
+// namespace : controller path
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Repository\AdRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
+// Controleur de la page d'accueil où on va renvoyer les datas de la bdd et parametrer les routes 
 // Pour créer une page : 1- Une fonction publique ( classe ) / 2- une route / 3- Une réponse 
 
 class HomeController extends Controller{
  
     /**
-     *  Création de notre 1er route
+     *  1st route of our page
      *  @Route ("/", name="homepage")
-     * 
-     *  
      */
 
-    public function home(){
+    public function home(AdRepository $adRepo, UserRepository $userRepo){
 
-        $noms = ['Durand'=>'visiteur','Francois'=>'admin','Dupont'=>'contributeur'];
-
-        // render est une méthode de la classe controller
-        return $this->render('home.html.twig',['titre'=>'Site d\'annonces !','acces'=>'visiteur','tableau'=>$noms]);
+        // render is a method that return to the view what is passed in the parameters
+        return $this->render('home.html.twig',
+                             ['ads'=>$adRepo->findBestAds(6),
+                             'users'=>$userRepo->findBestUsers(4)
+                            ]);
     }
 
     /**
-     * Montre la page qui salue l'utilisateur
+     * Show the page that says hi to the user
      * 
      * @Route("/hello/{nom}",name="hello")
      * @Route("/profil",name="hello-base")

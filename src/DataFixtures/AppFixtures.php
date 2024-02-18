@@ -17,6 +17,10 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
+// Datafixture ( Picsum )
+// Encodage du password
+// Création d'un role admin 
 class AppFixtures extends Fixture
 {   
     private $passwordEncoder;
@@ -50,8 +54,8 @@ class AppFixtures extends Fixture
         $faker = Factory::create('FR-fr');
         // Gestion des roles 
 
-        $adminRole = new Role();
-        $adminRole->setTitle('ROLE_ADMIN');
+        $adminRole = new Role(); // Instanciation de l'objet
+        $adminRole->setTitle('ROLE_ADMIN'); // Super globable 
         $manager->persist($adminRole);
 
         // Création d'un utiilisateur spécial avec un role admin
@@ -91,6 +95,7 @@ class AppFixtures extends Fixture
                  ->setLastname($faker->lastname)
                  ->setemail($faker->email)
                  ->setintroduction($faker->sentence())
+                 // Mise en place du mot de passe password pour tous les utilisateurs avec la classe encoderu de Symfony
                  ->setPassword($this->passwordEncoder->encodePassword($user,"password"))
                  ->setAvatar($avatar)
                  ;
@@ -98,7 +103,7 @@ class AppFixtures extends Fixture
                  $users[]=$user;
         }
 
-        // Annonces 
+        // ADD  
 
         for($i=1;$i<=5;$i++){
          $user = New User(); $a=$i*10; // Pour afficher les ID de 1 à 10 sur lorempicsum
@@ -138,6 +143,7 @@ class AppFixtures extends Fixture
                 for($j=1;$j<=mt_rand(2,5);$j++){
         
                     // On crée une nouvelle instance de l'entité image
+                    // By calling the method setURL, we will be able to generate random images from the picsum URL 
                     $image = new Image();
                     $image->setUrl("https://picsum.photos/id/".mt_rand(30,1000)."/640/480")
                           ->setCaption($faker->sentence())

@@ -92,4 +92,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+
+    public function findBestUsers($limit = 4){
+        // Doctrine nous permet de prévenir les injections SQL en permettant de manipuler des objets au lieu de manipuler des requêtes d'où le principe de mapping
+        return $this->createQueryBuilder('u')
+                    ->select('u as user,AVG(c.rating) as avgRatings,COUNT(c) as sumComments')
+                    ->join('u.ads','a')
+                    ->join('a.comments','c')
+                    ->groupBy('u')
+                    ->having('sumComments > 3')
+                    ->orderBy('avgRatings','DESC')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
 }

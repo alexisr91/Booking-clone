@@ -7,14 +7,16 @@ use App\Entity\Booking;
 use App\Entity\Comment;
 use App\Form\BookingType;
 use App\Form\CommentType;
-use Doctrine\ORM\EntityManager;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
+// Reservation des users pour booker une annonce
+
 
 class BookingController extends AbstractController
 {
@@ -32,7 +34,7 @@ class BookingController extends AbstractController
 
         $form->handleRequest($request);
         
-        dump($booking);
+        
         if($form->isSubmitted() && $form->isValid()){
 
             $user = $this->getUser();

@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block title%} Modifier une annonce{% endblock %}
+{% block title %} Modifier une annonce{% endblock %}
 {% form_theme form 'ad/_collections.html.twig' %}
 {% block body %}
+
+<!-- Modification de l'annonce coté users -->
 
 <div class="container my-2">
     <h1>Modification d'une  annonce</h1>
 
     {# Le premier form c'est une fonction de twig / le deuxieme c'est la variable envoyé depuis le controller  #}
-    {{ form_start(form) }}
+    {{ form_start(form)| striptags | e }}
     {{ form_row(form.title) }}
     {{ form_row(form.slug) }}
     {{ form_row(form.coverImage) }}
@@ -15,11 +17,9 @@
     {{ form_row(form.content) }}
     {{ form_row(form.rooms) }}
     {{ form_row(form.price) }}
-    {{ form_label(form.images) }}
     {{ form_errors(form.images) }}
 
-
-    <ul id="images-fields-list" 
+<ul id="images-fields-list" 
         data-prototype="{{ form_widget(form.images.vars.prototype)|e }}"
         data-widget-tags="{{ '<li></li>'|e }}"
         data-widget-counter="{{ form.images|length }}">
@@ -39,6 +39,6 @@
 
     {{form_row(form.save, {'label': 'Enregistrer', 'attr': {'class': 'btn btn-primary'}})}}
     
-    {{ form_end(form) }} 
 </div>
 {% endblock %}
+

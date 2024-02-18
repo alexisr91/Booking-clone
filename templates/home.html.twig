@@ -3,121 +3,136 @@
 
 {% block body %}
 
+<!-- Homepage de l'utilisateur -->
 <main class="container ps-4"></main>
-b
-    <div class="jumbotron ps-4 pt-2 mt-3">
-        <h1 class="h2">{{titre}}</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+
+    <div class="jumbotron ps-4 pt-3 mt-3">
+        <p class="text-center pt-4 image-fluid"><img src="img/logo-home.png" alt="logo-page"></p>
+        <h1 class="title-booking h2 text-center mb-4">BOOKING</h1>
+        <p class="text-ipsum lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sem ipsum. Donec tincidunt euismod imperdiet. Cras est massa, maximus a rutrum eget, pellentesque sit amet lectus. Ut in placerat quam. Integer ac lorem orci. Duis commodo justo finibus purus facilisis aliquam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent ultrices magna erat. Etiam maximus condimentum nisi non rhoncus. </p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </p>
+        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sem ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sem ipsum.</p>
+        
+    </div>
+    
+    <!-- Modal RGBD de consentement -->
+
+    <div id="modal" alt="modalRgbd" class="">
+        <div id="modal-content">
+            <p class="text-right">Nous accordons une grande importance à la confidentialité de vos données personnelles. Cette Déclaration de Confidentialité explique comment nous collectons, utilisons, partageons et protégeons vos informations. En utilisant nos services, vous consentez à cette Déclaration de Confidentialité.</p>
+            <hr>
+            <button id="btn-accept" onclick="accept()">ACCEPTER</button>
+            <button id="btn-cancel" onclick="cancel()">ANNULER</button>
+            <img src="img/kakaofriend.gif" alt="kakaoModal">
+        </div>
+    </div>
+    
+    
+    <div id="cookieBanner">
+        <img src="/img/cookie.png" alt="cookie">
+        <p class="text">Hello, dear visitor, we are so kind here we want to offer you some cookies, do you want some ?</p><button onclick="acceptCookies()" class="btn btn-dark">Accepter</button>
+        <img src="/img/kakaofriend.gif" class="kakao"alt="kakaoCookie"> 
     </div>
 
-    <h3 class="h1 mt-4 mb-4 ps-4">Offres spéciales</h3>
-    <section class="row ps-4">
 
-        <article class="col-md-4">
-            <div class="card mb-3">
-                <h3 class="h4 card-header text-white bg-primary">3 chambres, <strong>50 &euro;</strong>/nuit</h3>
-                <img style="height: 200px; width: 100%; display: block;" src="https://picsum.photos/seed/picsum/640/480" alt="Card image">
-                <div class="card-body">
-                  <h5 class="card-title">Loft à Londres</h5>
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil cumque consequatur laborum optio deserunt ad aspernatur ut?</p>
-                 <a href="#" class="btn btn-primary">+ d'infos</a>
-                </div>
-                <div class="card-footer text-muted">
-                  Pas encore noté.
-                </div>
-            </div>
+        <script>
+            
+            function acceptCookies() {
+                document.cookie = "cookie=true; expires={{ '+7 days'|date('D, d M Y H:i:s T') }}; path=/; Secure ";
+                document.getElementById('cookieBanner').style.display = 'none';
+            }
 
-        </article>
 
-        <article class="col-md-4">
-            <div class="card mb-3">
-                <h3 class="h4 card-header text-white bg-primary">2 chambres, <strong>150 &euro;</strong>/nuit</h3>
-                <img style="height: 200px; width: 100%; display: block;" src="https://picsum.photos/640/480?grayscale" alt="Card image">
-                <div class="card-body">
-                  <h5 class="card-title">Appartement Cannes</h5>
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil cumque consequatur laborum optio deserunt ad aspernatur ut?</p>
-                 <a href="#" class="btn btn-primary">+ d'infos</a>
-                </div>
-                <div class="card-footer text-muted">
-                  Pas encore noté.
-                </div>
-            </div>
-        </article>
+            // Modal RGPD
+            const modalContainer = document.getElementById('modal');
 
-        <article class="col-md-4">
-            <div class="card mb-3">
-                <h3 class="h4 card-header text-white bg-primary">5 chambres, <strong>250 &euro;</strong>/nuit</h3>
-                <img style="height: 200px; width: 100%; display: block;" src="https://picsum.photos/seed/picsum/640/480" alt="Card image">
-                <div class="card-body">
-                  <h5 class="card-title">Maison dans le Main</h5>
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil cumque consequatur laborum optio deserunt ad aspernatur ut?</p>
-                 <a href="#" class="btn btn-primary">+ d'infos</a>
-                </div>
-                <div class="card-footer text-muted">
-                  Pas encore noté.
-                </div>
-            </div>
-        </article> 
+                function accept() {
+                    // Code à exécuter lorsque le user accepte
+                    console.log('Consentement accepté');
+                    closeModal();
+                }
+
+                // Function to cancel
+                function cancel() {
+                    // Code à exécuter lorsque le user annule
+                    console.log('Consentement annulé');
+                    closeModal();
+                }
+                
+                // Function to close the modal
+
+                function closeModal() {
+                    modalContainer.style.display = 'none';
+                    window.removeEventListener('scroll', handleScroll);
+                }
+
+                // Function that can remove the modal from the DOM 
+                function removeModal() {
+                    if (modalContainer) {
+                        modalContainer.remove();
+                        window.removeEventListener('scroll', handleScroll);
+                    }
+                }
+        </script>
+
+
+
+
+    <h3 class="h1 mt-4 mb-4 ps-4 text-center"> Annonce les mieux notées</h3>
+    <section class="row">
+
+        {% for data in ads %}
+        {% include 'ad/_ad.html.twig' with {'ad':data.annonce} %}
+      
+        {% endfor %}
     </section>
+    
 
-
-    <h3 class="h1 mt-4 ps-4 mb-4">Nos meilleurs annonceurs</h3>
-    <section class="row ps-4">
+    <h3 class="h1 mt-4 ps-4 mb-4 text-center text-decoration-underline">Nos meilleurs annonceurs</h3>
+    <section class="bestannouncer row ps-4 d-flex justify-content-center">
+        {% for data in users %}
 
         <article class="col-md-3">
-            <div class="card mb-3">
-                <h3 class="h4 card-header bg-warning">John Doe</h3>
+            <div class="card mb-3 d-flex">
+               
+                <h3 class="h4 card-header bg-warning">{{data.user.fullName}}</h3>
 
                 <div class="card-body">
-                    <img src="http://placehold.it/64" alt="avatar de..." class="float-left mr-3">
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil cumque consequatur laborum optio deserunt ad aspernatur ut?</p>
-                 <a href="#" class="btn btn-warning text-primary">+ d'infos</a>
+                    <img src="{{data.user.avatar}}" alt="avatar de..." class="float-left mr-3">
+                 <p>{{data.user.introduction}}</p>
+                 <a href="{{path('user_show',{'slug':data.user.slug})}}" class="btn btn-warning text-primary">+ d'infos</a>
                 </div>
                 </div>
         </article>
+        {% endfor %}
 
-        <article class="col-md-3">
-            <div class="card mb-3">
-                <h3 class="h4 card-header bg-warning">John Doe</h3>
+        
 
-                <div class="card-body">
-                    <img src="http://placehold.it/64" alt="avatar de..." class="float-left mr-3">
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil cumque consequatur laborum optio deserunt ad aspernatur ut?</p>
-                 <a href="#" class="btn btn-warning text-primary">+ d'infos</a>
-                </div>
-                </div>
-        </article>
+        {% if not app.request.cookies.has('cookie') %}
 
-        <article class="col-md-3">
-            <div class="card mb-3">
-                <h3 class="h4 card-header bg-warning">John Doe</h3>
-
-                <div class="card-body">
-                    <img src="http://placehold.it/64" alt="avatar de..." class="float-left mr-3">
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil cumque consequatur laborum optio deserunt ad aspernatur ut?</p>
-                 <a href="#" class="btn btn-warning text-primary">+ d'infos</a>
-                </div>
-                </div>
-        </article>
-
-        <article class="col-md-3">
-            <div class="card mb-3">
-                <h3 class="h4 card-header bg-warning">John Doe</h3>
-
-                <div class="card-body">
-                    <img src="http://placehold.it/64" alt="avatar de..." class="float-left mr-3">
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil cumque consequatur laborum optio deserunt ad aspernatur ut?</p>
-                 <a href="#" class="btn btn-warning text-primary">+ d'infos</a>
-                </div>
-                </div>
-        </article> 
-    </section>
-
-
-</main>
+        
+        {% endif %} 
+                
+    </main>
+    
+    <footer>
+        <section>
+            <h2 class="text-white bold text-decoration-underline">Informations de Contact</h2>
+            <p>Nom de l'entreprise: Booking</p>
+            <p>15 rue de la paix</p>
+            <p>Numéro de téléphone : 8069676765</p>
+            <p>Adresse e-mail : ramboarinaalexis@gmail.com</p>
+        </section>
+        
+        <section>
+            <h2 class="text-white bold text-decoration-underline">Collecte de Données Personnelles</h2>
+            <p>Les données personnelles sont collectées dans le but de....</p>
+            <p>Les utilisateurs ont le droit d'accéder, de modifier ou de supprimer leurs données. Consultez notre <a href="#">Politique de Confidentialité</a> pour plus d'informations.</p>
+        </section>
+        
+        <div class="copyright text-bold">
+            <p>Copyright © 2024 Booking
+            <div>Certains contenus sont soumis à une licence spécifique.</div></p>
+        </div>
+    </footer>
     {% endblock %}

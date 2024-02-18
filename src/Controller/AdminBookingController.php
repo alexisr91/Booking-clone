@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Booking;
 use App\Service\Pagination;
 use App\Form\AdminBookingType;
-use App\Repository\BookingRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request; // Call for the CSRF Token 
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException; // For the CSRF attack 
+
+
+// CRUD de l'admin sur les reservations des utilisateurs 
 
 class AdminBookingController extends AbstractController
 {
@@ -19,7 +22,7 @@ class AdminBookingController extends AbstractController
      * @Route("/admin/bookings/{page<\d+>?1}", name="admin_bookings_list")
      * @return Response
      */
-    public function index(BookingRepository $repo, Pagination $paginationService,$page): Response
+    public function index( Pagination $paginationService,$page): Response
     {
         $paginationService->setEntityClass(Booking::class)
                           ->setPage($page)
@@ -42,16 +45,15 @@ class AdminBookingController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
+     * Ce qui passe dans le paramètre de la méthode est l'entité Booking, c'est ce qui fait le lien entre le Controller et le Model
      */
     
-    public function edit(Booking $booking, EntityManagerInterface $manager ,Request $request, BookingRepository $repo){
+    public function edit(Booking $booking, EntityManagerInterface $manager ,Request $request){
     
         $form = $this->createForm(AdminBookingType::class,$booking,['validation_groups'=>['default'] ]); // Application des contraintes dans le defaut
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-
-            //$booking->setAmount($booking->getAd()->getPrice() * $booking->getDuration());
 
             $booking->setAmount(0);
 
@@ -68,21 +70,29 @@ class AdminBookingController extends AbstractController
 
 
     /**
-     * Supression d'une reservation
+     * Supression d'une reservation / Token CSRF implemented
      * @Route("/admin/booking/{id}/delete", name="admin_booking_delete")
      * @param Booking $booking
      * @param EntityManagerInterface $manager
      * @return Response
      */
 
-    public function delete(Booking $booking,EntityManagerInterface $manager){
+    public function delete(Booking $booking,EntityManagerInterface $manager, Request $request){
 
-        $manager->remove($booking);
-        $manager->flush();
+        $token = $request->request->get('token');
 
-        $this->addFlash("success","reservation supprimée avec succès");
-
-        return $this->redirectToRoute('admin_bookings_list');
+        if(
+            $this->isCsrfTokenValid(
+                'delete' . $booking->getId(),
+                $token
+        )){
+            $manager->remove($booking);
+            $manager->flush();
+            $this->addFlash("success","La reservation {$booking->getId()}a été supprimée avec succès");
+            return $this->redirectToRoute('admin_bookings_list');
+        }else{
+            throw new BadRequestHttpException("REQUETE EGALEMENT INTERDITE !");
+        }
     }
 
 

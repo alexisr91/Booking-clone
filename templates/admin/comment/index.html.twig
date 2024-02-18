@@ -35,10 +35,17 @@
                             <td><span class="badge badge-primary">{{comment.ad.averageRatings|number_format(1,',','')}}</span></td>
                             <td>{{comment.ad.title}}</td>
                             <td>
-                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="{{path('admin_ads_edit',{'id':comment.id})}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <a href="{{path('admin_comment_delete',{'id':comment.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                {# <a href="{{path('admin_comment_delete',{'id':comment.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a> #}
+                                
+                                {# Copy this code to secure from the CSRF attack through the token csrf #}
+                                <form action="{{ url('admin_comment_delete', {id: comment.id}) }}" method="post">
+                                    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ comment.id) }}"/>
+                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                                </form>
+                                
                             </td>
 
                         </tr>

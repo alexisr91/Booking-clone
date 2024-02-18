@@ -12,7 +12,7 @@
 
                 <img src="{{user.avatar}}" alt=" Avatar de {{user.fullName}}" class="avatar mb-3">
                 <br>
-                <span class="badge badge-primary">{{user.ads| length}} {% if user.ads| length > 1 %}annonces {% else %} annonce {% endif %}</span>
+                <span class="badge badge-primary text-black-50">{{user.ads| length}} {% if user.ads| length > 1 %}annonces {% else %} annonce {% endif %}</span>
                 </div>
             <div class="col-9">
 
@@ -20,9 +20,10 @@
 
                 {% if user is same as (app.user) %}
                     <div class="mt-3">
-
-                        <a href="{{path('account_profile')}}" class="btn btn-outline-secondary"> Modifier mes informations </a>
-                        <a href="{{path('account_password')}}" class="btn btn-outline-secondary"> Modifier mon mot de passe </a>
+                        
+                        <!-- striptags =   éviter des problèmes de sécurité tels que les attaques XSS   / e = évite également ce problème en échappant les caracteres < > -->
+                        <a href="{{path('account_profile' | striptags | e )}}" class="btn btn-outline-warning me-3"> Modifier mes informations </a>
+                        <a href="{{path('account_password')}}" class="btn btn-outline-info"> Modifier mon mot de passe </a>
                     </div>
 
                 {% endif %}
@@ -30,7 +31,8 @@
         </div>
 
         <div class="container mt-5">
-            {{ user.description |raw}}
+            {{ user.description |raw}} 
+            <!-- raw est le contraire du filtre Twig |e et laisse le champ pour les balises HTML, peut aussi comporter des failles de securité dependamment de quel champ on utilise -->
 
             <hr class="py-3">
 

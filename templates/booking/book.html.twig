@@ -45,8 +45,8 @@
 
             {{form_row(form.comment)}}
 
-            <button type="submit" class="btn btn-primary mt-4">Réserver !</button>
-            <a href="{{path('ads_single',{'slug':ad.slug})}}" class="btn btn-secondary mt-4">Retour</a>
+            <button type="submit" class="btn btn-primary mt-4" id="book">Réserver !</button>
+            <a href="{{path('ads_single',{'slug':ad.slug})}}" class="btn btn-secondary mt-4" id="book-retour">Retour</a>
 
             {{form_end(form)}}
 
@@ -61,13 +61,11 @@
 <script>
     $(document).ready(function(){
 
-        $('.datepicker').datepicker({
-        
+        $('.datepicker').datepicker({      
         format:'dd/mm/yyyy',
         startDate: new Date(),
         locale: 'FR',
-        datesDisabled:[
-            
+        datesDisabled:[   
         ],
     });
 
@@ -84,14 +82,12 @@
 
         const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(d+)\/(\d{4})/,'$3-$2-$1'));
 
-        const startDate = new Date($('#booking_startDate').val.replace(/(\d+)\/(d+)\/(\d{4})/,'$3-$2-$1'));
+        const startDate = new Date($('#booking_startDate').val().replace(/(\d+)\/(d+)\/(\d{4})/,'$3-$2-$1'));
 
         // On compare les 2 pour trouver le nombre de jours
         //il manquait le .replace 
-        // MAis je comprends pas à quoi sert ces regex ni pourquoi ni ou et quand les utiliser ?
-        // 
         // elles remplacent les date et les formatte correctement, tu les utilise on ('change')
-        // OK je veux juste tester le rendu des dates sur ma route pour voir si ça marche, je te remercie infiniment 
+        // Tester le rendu des dates sur ma route pour voir si ça marche
 
 
         if(startDate && endDate && (startDate < endDate)){

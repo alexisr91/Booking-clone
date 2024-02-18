@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+
+// AUTHENTIFICATION pour l'admin
 class AdminAccountController extends AbstractController
 {
     /**
@@ -29,6 +31,6 @@ class AdminAccountController extends AbstractController
      * @return void
      */
     public function logout(){
-
+        // Le fichier securitt.yaml se charge de la déconnexion donc pas besoin de bloc d'instruction
     }
 }

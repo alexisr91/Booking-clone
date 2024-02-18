@@ -10,7 +10,7 @@
         <h1>{{ad.title}}</h1>
         <p>{{ad.introduction}}</p>
         <p class="h5">{{ad.rooms}} chambres pour <strong>{{ad.price}} &euro; / nuit</strong></p>
-        <a href="{{path('booking_create',{'slug':ad.slug})}}" class="btn btn-warning">Réserver !</a>
+        <a href="{{path('booking_create',{'slug':ad.slug})}}" class="book-ad btn btn-warning">Réserver !</a>
         {% if app.user and app.user == ad.user %}
             <a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-info">Modifier l'annonce</a>
             <a href="{{path('ads_delete',{'slug':ad.slug})}}" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer cette annonce ?`)">Supprimer l'annonce</a>
@@ -119,7 +119,7 @@
                     <a href="{{path('user_show', {'slug':a.slug})}}">
                         <h3>{{a.fullname}}</h3>
                     </a> 
-                    <span class="badge badge-warning">{{a.ads| length}} {% if a.ads| length > 1 %} annonces{% else %} annonce {% endif %}</span>
+                    <span class="badge badge-warning text-black-50">{{a.ads| length}} {% if a.ads| length > 1 %} annonces{% else %} annonce {% endif %}</span>
                 </div>
 
             </div>
