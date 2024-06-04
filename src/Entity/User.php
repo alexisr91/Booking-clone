@@ -114,7 +114,7 @@ class User implements UserInterface // UserInterface = gestion de l'utilisateur 
     private $bookings;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", orphanRemoval=true)
      */
     private $comments;
 

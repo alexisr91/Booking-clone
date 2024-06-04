@@ -7,10 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class Statistics{
 
-
-
     private $manager;
-
 
     public function __construct(EntityManagerInterface $manager){
         $this->manager = $manager;

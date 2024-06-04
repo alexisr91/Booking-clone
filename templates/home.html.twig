@@ -38,6 +38,7 @@
         <script>
             
             function acceptCookies() {
+                // Sans connexion internet, le JS n'est pas chargé et ne synchronise pas l'horloge du système et valide le cookie à H-1
                 document.cookie = "cookie=true; expires={{ '+7 days'|date('D, d M Y H:i:s T') }}; path=/; Secure ";
                 document.getElementById('cookieBanner').style.display = 'none';
             }

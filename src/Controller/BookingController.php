@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BookingController extends AbstractController
 {
     /**
-     * Permet d'afficher le formulaire de reservation 
+     * Permet d'afficher le formulaire de reservation et de le booker
      * @Route("/ads/{slug}/book", name="booking_create")
      * @IsGranted("ROLE_USER")
      * @param Ad $ad
@@ -31,9 +31,7 @@ class BookingController extends AbstractController
     {
         $booking = new Booking();
         $form = $this->createForm(BookingType::class,$booking);
-
         $form->handleRequest($request);
-        
         
         if($form->isSubmitted() && $form->isValid()){
 
@@ -42,21 +40,16 @@ class BookingController extends AbstractController
                     ->setAd($ad);
 
             // Si les dates ne sont pas dispo
-
             if(!$booking->isBookable()){
 
                 $this->addFlash("warning","Ces dates ne sont pas disponibles choisissez d'autres dates pour votre séjour");
-            }
-            
-            else{
+            }else{
 
                 $manager->persist($booking);
                 $manager->flush();
                 
                 return $this->redirectToRoute("booking_show",['id'=>$booking->getId(),'alert'=>true]);
             }
-
-
         }
 
         return $this->render('booking/book.html.twig', [
